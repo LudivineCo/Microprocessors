@@ -69,7 +69,7 @@ delay:
 	movwf	0x03
 Delay_0:
         call    Button
-	call    Other_Button
+	;call    Other_Button
 	decfsz	0x01, f ;loop until zero
 	goto	loop1
 	decfsz	0x02, f
