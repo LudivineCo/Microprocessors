@@ -1,7 +1,7 @@
 #include <xc.inc>
     
     
-global  crossing, Button, Other_Button, Button_reset, one_sec_delay,check_photodiode, crossing_sound
+global  crossing, Button, Other_Button, Button_reset ,check_photodiode, crossing_sound
 extrn   UART_Transmit_Message,LCD_Write_Message,After_button_press, LCD_delay_ms
 extrn    ADC_Read
     
@@ -129,24 +129,7 @@ reset1:
     call Button_reset
     return
     
-one_sec_delay:;repeates loop for approx 1 sec			
-	movlw	0x91
-	movwf	0x04
-	movlw	0xE1
-	movwf	0x05
-	movlw	0x23
-	movwf	0x06
-Delay_1:
-	decfsz	0x04, f
-	goto	loop3
-	decfsz	0x05, f
-loop3:	goto	loop4
-	decfsz	0x06, f
-loop4:	goto	Delay_1			;4 cycles (including call)
-	return
-    return
     
-
     
  end
 
