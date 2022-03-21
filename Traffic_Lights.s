@@ -1,7 +1,7 @@
 #include <xc.inc>
     
 global  Traffic_lights_setup,Traffic_Lights_Light_pattern,After_button_press
-extrn   LCD_delay_ms,one_sec_delay
+extrn   LCD_delay_ms
 extrn   Button, Other_Button,check_photodiode
 
 psect	udata_acs   ; reserve data space in access ram
