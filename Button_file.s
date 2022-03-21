@@ -90,12 +90,11 @@ loop: 	tblrd*+			; one byte from PM to TABLAT, increment TBLPRT
 Button: ;checks button is pressed
     movlw  0x01
     cpfseq PORTE, A 
-    return ;button not pressed
+    goto Other_Button;button not pressed
     movwf  Buttons,A;button pressed 
     movlw  0x04 ;turn button lights on
     movwf  LATE,A
- return
-    
+   return    
 Other_Button:
     movlw 0x02
     cpfseq PORTE, A ;check if other butrton is pressed
