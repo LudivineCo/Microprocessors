@@ -74,7 +74,7 @@ red_orange:
     return    
 
 delay:	
-        call    check_photodiode
+       ; call    check_photodiode ;uncommement to use photodiode to detect person
 	movlw	0x23 ;set length of delay
 	movwf	0x01
 	movlw	0xC2
