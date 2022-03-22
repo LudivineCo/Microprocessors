@@ -22,7 +22,7 @@ Traffic_lights_setup:;set up ports
     movwf   TRISE, A ;pins 1 and 2 input, 3 output- external buttons and button lights
     movlb   0xF
     bsf     REPU
-    clrf    LATE
+    clrf    LATE, A
 ;    
 ;    movlw   0xFF ;set up buzzer with ccp4- extension method
 ;    movwf   PR2 ;set the period
@@ -76,19 +76,19 @@ red_orange:
 delay:	
        ; call    check_photodiode ;uncommement to use photodiode to detect person
 	movlw	0x23 ;set length of delay
-	movwf	0x01
+	movwf	0x01, A
 	movlw	0xC2
-	movwf	0x02
+	movwf	0x02, A
 	movlw	0x46
-	movwf	0x03
+	movwf	0x03, A
 Delay_0:
         call    Button
 	;call    Other_Button
-	decfsz	0x01, f ;loop until zero
+	decfsz	0x01, f, A ;loop until zero
 	goto	loop1
-	decfsz	0x02, f
+	decfsz	0x02, f, A
 loop1:	goto	loop2
-	decfsz	0x03, f
+	decfsz	0x03, f, A
 loop2:	goto	Delay_0			;2 cycles
 	;goto	$+1			;4 cycles (including call)
 	return
