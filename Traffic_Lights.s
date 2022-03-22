@@ -13,7 +13,9 @@ Traffic_lights_setup:;set up ports
     movlw   0x00
     movwf   TRISB, A ;output- for buzzer
     movlw   0x00
-    movwf   TRISD, A ;output- for traffic lights
+    movwf   TRISD, A ;output- for traffic lights set 1
+    movlw   0x00
+    movwf   TRISJ, A ;output- for traffic lights set 2
     movlw   0x00
     movwf   TRISH, A  ;Setting the pedestrian crossing to be an output
     movlw   0x03
@@ -22,7 +24,7 @@ Traffic_lights_setup:;set up ports
     bsf     REPU
     clrf    LATE
 ;    
-;    movlw   0xFF
+;    movlw   0xFF ;set up buzzer with ccp4- extension method
 ;    movwf   PR2 ;set the period
 ;    movlw   0xFF
 ;    movwf   CCPR4L;set duty cycle
@@ -38,25 +40,37 @@ Traffic_lights_setup:;set up ports
         
     return
 Traffic_Lights_Light_pattern:;standard traffic light sequence
-    movlw 0x04
+       movlw 0x04
     movwf LATH, A    ;Setting the pedestrian crossing to red as default
     movlw  0x09;red
     movwf  LATD, A
-    call   delay 
+     
+    movlw  0x03; red and orange
+    movwf  LATJ, A
+    call   delay
+    
+    movlw  0x04; green
+    movwf  LATJ, A
+    call   delay
+    movlw  0x02; orange
+    movwf  LATJ, A    
+    call   delay
+    
+    movlw  0x01; red 
+    movwf  LATJ, A
+    ;call   delay   
+    call   crossing   
 red_orange:
     movlw  0x1B; red and orange
     movwf  LATD, A
     call   delay
+   
     movlw  0x24; green
     movwf  LATD, A
     call   delay
     movlw  0x12; orange
     movwf  LATD, A
-    call   delay     
-return
-    
-After_button_press:; in oder to synchronise back to default pattern 
-    goto red_orange         ;after the crossing 
+    call   delay 
     return    
 
 delay:	
