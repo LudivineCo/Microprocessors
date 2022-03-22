@@ -28,7 +28,7 @@ psect	Button_code,class=CODE
     cpfseq Buttons, A; check if button was pressed
     return; not pressed
     call ADC_Read ;check if person is still there
-    movlw 42; choosen threshold
+    movlw 300; choosen threshold
     movlb 0x0F
     CPFSLT ADRESL, 0; in bank
     return; no one there- cancel
