@@ -2,7 +2,7 @@
     
 global  Traffic_lights_setup,Traffic_Lights_Light_pattern,After_button_press
 extrn   LCD_delay_ms
-extrn   Button, Other_Button,check_photodiode
+extrn   Button, Other_Button,check_photodiode, crossing
 
 psect	udata_acs   ; reserve data space in access ram
 ;test:    ds 1    ; reserve one byte for a test variable    
