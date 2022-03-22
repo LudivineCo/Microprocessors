@@ -114,7 +114,7 @@ Button_reset:
     
 check_photodiode:
     call ADC_Read ;check person if there
-    movlw 300
+    movlw 300 ;same value as 44
     movlb 0x0F
   ;  movf  ADRESL, W,A
     CPFSLT ADRESL, 0;in b
