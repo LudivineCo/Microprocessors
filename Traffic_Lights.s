@@ -52,6 +52,22 @@ Traffic_Lights_Light_pattern:;standard traffic light sequence
     movlw  0x04; green
     movwf  LATJ, A
     call   delay
+    
+    ;check_cars:
+;   
+;    call ADC_Read ;check car is in horizontal
+;    movlw 44
+;    movlb 0x0F; if no cars at horizontal 
+;    CPFSLT ADRESL, 0;in b 
+;    goto orange;no one there
+;    call delay; set veritcal to green , keep horizontal red;until button is detected to be pressed or cars are at horizontal 
+;    ;check button pressed
+;    movlw  0x04
+;    CPFSEQ PORTE, A;in b
+;    goto check_cars;button not pressed
+;    ;button pressed
+;    
+    
     movlw  0x02; orange
     movwf  LATJ, A    
     call   delay
