@@ -1,8 +1,8 @@
 #include <xc.inc>
     
-global  Traffic_lights_setup,Traffic_Lights_Light_pattern,After_button_press
-extrn   LCD_delay_ms
-extrn   Button, Other_Button,check_photodiode, crossing
+global  Traffic_lights_setup,Traffic_Lights_Light_pattern
+extrn   LCD_delay_ms,one_sec_delay
+extrn   Button, Other_Button,check_photodiode, crossing, Button_reset
 
 psect	udata_acs   ; reserve data space in access ram
 ;test:    ds 1    ; reserve one byte for a test variable    
@@ -24,7 +24,7 @@ Traffic_lights_setup:;set up ports
     bsf     REPU
     clrf    LATE, A
 ;    
-;    movlw   0xFF ;set up buzzer with ccp4- extension method
+;    movlw   0xFF
 ;    movwf   PR2 ;set the period
 ;    movlw   0xFF
 ;    movwf   CCPR4L;set duty cycle
@@ -40,7 +40,7 @@ Traffic_lights_setup:;set up ports
         
     return
 Traffic_Lights_Light_pattern:;standard traffic light sequence
-       movlw 0x04
+    movlw 0x04
     movwf LATH, A    ;Setting the pedestrian crossing to red as default
     movlw  0x09;red
     movwf  LATD, A
@@ -59,8 +59,9 @@ Traffic_Lights_Light_pattern:;standard traffic light sequence
     movlw  0x01; red 
     movwf  LATJ, A
     ;call   delay   
-    call   crossing   
-red_orange:
+    call   crossing 
+    call   Button_reset
+    
     movlw  0x1B; red and orange
     movwf  LATD, A
     call   delay
@@ -70,11 +71,12 @@ red_orange:
     call   delay
     movlw  0x12; orange
     movwf  LATD, A
-    call   delay 
-    return    
+    call   delay  
+return
+       
 
 delay:	
-       ; call    check_photodiode ;uncommement to use photodiode to detect person
+        ;call    check_photodiode
 	movlw	0x23 ;set length of delay
 	movwf	0x01, A
 	movlw	0xC2
@@ -84,7 +86,7 @@ delay:
 Delay_0:
         call    Button
 	;call    Other_Button
-	decfsz	0x01, f, A ;loop until zero
+	decfsz	0x01, f ,A ;loop until zero
 	goto	loop1
 	decfsz	0x02, f, A
 loop1:	goto	loop2
