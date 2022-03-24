@@ -2,7 +2,7 @@
     
     
 global  crossing, Button, Other_Button, Button_reset ,check_photodiode, crossing_sound
-extrn   UART_Transmit_Message,LCD_Write_Message,After_button_press, LCD_delay_ms
+extrn   UART_Transmit_Message,LCD_Write_Message, LCD_delay_ms
 extrn    ADC_Read
     
 psect	udata_acs   ; reserve data space in access ram
@@ -41,7 +41,7 @@ psect	Button_code,class=CODE
     call countdown
     movlw 0x04       ; Setting the pedestrain crossing to red
     movwf LATH, A    
-    call After_button_press 
+     
 return
 
    
